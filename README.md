@@ -16,23 +16,14 @@
 
 ---
 
-## 🔧 نصب
+## 🚀 نصب و راه‌اندازی
 
 ```bash
 git clone https://github.com/your-username/rathole-watchdog.git
 cd rathole-watchdog
-```
-
----
-
-## 🎯 اجرای اولیه اسکریپت
-
-```bash
 chmod +x rathole_watchdog.sh
 sudo ./rathole_watchdog.sh
 ```
-
-در اولین اجرا، IP و پورت سرور مقصد از شما پرسیده می‌شود و فایل سرویس systemd نیز به صورت خودکار ساخته خواهد شد.
 
 ---
 
