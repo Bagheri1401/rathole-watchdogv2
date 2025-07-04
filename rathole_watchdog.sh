@@ -2,14 +2,17 @@
 
 RATHOLE_DIR="/root/rathole-core"
 
+# پیدا کردن اولین فایل toml (کانفیگ رتهول)
 CONFIG_FILE=$(find "$RATHOLE_DIR" -maxdepth 1 -type f -name "*.toml" | head -n 1)
 if [ -z "$CONFIG_FILE" ]; then
   echo "هیچ فایل کانفیگ .toml در $RATHOLE_DIR پیدا نشد!"
   exit 1
 fi
 
+# مسیر ذخیره فایل تنظیمات ساده برای IP و پورت
 CONFIG_PATH="/root/rathole_watchdog.conf"
 
+# اگر فایل تنظیمات نیست، IP و پورت بپرس و ذخیره کن
 if [ ! -f "$CONFIG_PATH" ]; then
   echo "آدرس IP سرور مقصد (برای تست اتصال curl) را وارد کن:"
   read -r TARGET_IP
@@ -20,8 +23,10 @@ if [ ! -f "$CONFIG_PATH" ]; then
   echo "TARGET_PORT=$TARGET_PORT" >> "$CONFIG_PATH"
 fi
 
+# بارگذاری IP و پورت
 source "$CONFIG_PATH"
 
+# تابع تست اتصال و ریستارت در صورت قطع بودن
 check_and_restart() {
   TEST_URL="http://$TARGET_IP:$TARGET_PORT"
 
@@ -34,6 +39,7 @@ check_and_restart() {
   fi
 }
 
+# ساختن فایل systemd در صورت نبودنش
 SERVICE_FILE="/etc/systemd/system/rathole_watchdog.service"
 if [ ! -f "$SERVICE_FILE" ]; then
   echo "در حال ساخت فایل systemd برای watchdog..."
@@ -58,6 +64,7 @@ EOF
   echo "سرویس systemd ساخته و فعال شد."
 fi
 
+# حلقه اصلی برای بررسی هر 90 ثانیه
 while true; do
   check_and_restart
   sleep 90
