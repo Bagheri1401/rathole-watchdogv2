@@ -19,7 +19,7 @@
 ## 🚀 نصب و راه‌اندازی
 
 ```bash
-git clone https://github.com/your-username/rathole-watchdog.git
+git clone https://github.com/bagheri1401/rathole-watchdog.git
 cd rathole-watchdog
 chmod +x rathole_watchdog.sh
 sudo ./rathole_watchdog.sh
